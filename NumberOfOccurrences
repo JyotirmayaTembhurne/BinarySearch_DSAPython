@@ -1,0 +1,33 @@
+def count(arr: [int], n: int, x: int) -> int:
+    low, high = 0, n-1
+    first, last = low, high
+    found = False
+    if arr[low] == arr[high]:
+        return n
+    # First occurrence of x or target
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == x and arr[mid - 1] < arr[mid]:
+            found = True
+            first = mid
+            break
+        elif x > arr[mid]:
+            low = mid + 1
+        else:
+            high = mid - 1
+    # Last occurrence of x or target
+    low, high = first, n-1
+    while low <= high:
+        mid = (low + high) // 2
+        if mid + 1 < n and arr[mid] == x and arr[mid + 1] > arr[mid]:
+            last = mid
+            found = True
+            break
+        elif x < arr[mid]:
+            high = mid - 1
+        else:
+            low = mid + 1
+    if found:
+        return (last - first + 1)
+    else:
+        return 0
