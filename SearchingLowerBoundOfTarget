@@ -1,0 +1,9 @@
+def lowerBound(arr: [int], n: int, x: int) -> int:
+    low,high = 0,n-1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == x or arr[mid] > x:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return low
