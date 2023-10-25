@@ -1,0 +1,37 @@
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        if len(nums)==1:
+            if target>nums[0]:
+                return 1
+            else:
+                return 0    
+        if target<nums[0]:
+            return 0
+        elif target>nums[-1]:
+            return len(nums)   
+        else:  
+            found = False
+            low, high = 0, len(nums) - 1
+            while low <= high:
+                mid = (low + high) // 2
+                if nums[mid] == target:
+                    found = True
+                    return mid
+                elif target > nums[mid]:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+            if not found:
+                low, high = 0, len(nums) - 1
+                while low <= high:
+                    mid = (low + high) // 2
+                    if nums[mid] > target and nums[mid - 1] < target:
+                        return mid
+                    elif nums[mid] < target and nums[mid + 1] > target:
+                        return mid + 1
+                        break
+                    elif nums[mid] > target:
+                        high = mid - 1
+                    else:
+                        low = mid + 1
+            
