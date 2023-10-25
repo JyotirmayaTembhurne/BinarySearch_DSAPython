@@ -1,0 +1,34 @@
+from os import *
+from sys import *
+from collections import *
+from math import *
+
+def ceilingInSortedArray(n, x, arr):
+    low, high = 0, n - 1
+    if n==1:
+        if arr[0]==x:
+            return (str(arr[0])+' '+str(arr[0]))
+        elif arr[0]>x:
+            return (str(-1)+' '+str(arr[0]))
+        elif arr[0]<x:
+            return (str(arr[0])+' '+str(-1))
+        else:
+            return (str(-1)+' '+str(-1))
+    elif arr[0]==x:
+        return (str(arr[0])+' '+str(arr[0]))
+    elif arr[low] > x:
+        return (str(-1)+' '+str(arr[0]))
+    elif arr[high] < x:
+        return (str(arr[high])+' '+str(-1))
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == x:
+            return (str(x)+' '+str(x))
+        if arr[mid - 1] < x < arr[mid]:
+            return (str(arr[mid-1]) + ' ' + str(arr[mid]))
+        elif x > arr[mid]:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return (str(-1)+' '+str(-1))
+
