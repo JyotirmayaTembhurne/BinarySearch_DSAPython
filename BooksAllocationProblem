@@ -1,0 +1,23 @@
+def findPages(arr, size, students) -> int:
+    if students>size:
+        return -1
+    def IsFeasible(arr, students, res, size):
+        count, sum = 1, 0
+        for i in range(size):
+            if sum + arr[i] > res:
+                count += 1
+                sum = arr[i]
+            else:
+                sum += arr[i]
+        return count <= students
+    minimum = max(arr)
+    maximum = sum(arr)
+    result = 0
+    while minimum <= maximum:
+        mid = (maximum + minimum) // 2
+        if IsFeasible(arr, students, mid, size):
+            result = mid
+            maximum = mid - 1
+        else:
+            minimum = mid + 1
+    return result
