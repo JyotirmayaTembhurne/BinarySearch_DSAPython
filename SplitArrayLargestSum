@@ -1,0 +1,22 @@
+class Solution:
+    def splitArray(self, nums: List[int], k: int) -> int:
+        def IsFeasible(arr, res, k):
+            count, Sum = 1, 0
+            for i in range(len(arr)):
+                if Sum + arr[i] > res:
+                    count += 1
+                    Sum = arr[i]
+                else:
+                    Sum += arr[i]
+            return count <= k
+
+        Min, Max = max(nums), sum(nums)
+        result = 0
+        while Min <= Max:
+            mid = (Max + Min) // 2
+            if IsFeasible(nums, mid, k):
+                result = mid
+                Max = mid - 1
+            else:
+                Min = mid + 1
+        return result
